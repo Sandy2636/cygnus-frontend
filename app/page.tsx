@@ -21,7 +21,7 @@ export default function Hotels() {
   const router = useRouter();
 
   useEffect(() => {
-    // Fetch the list of hotels
+    if (!localStorage.getItem("token")) return router.push("/auth/login");
     const fetchHotels = async () => {
       try {
         const response = await axios.get("/hotels/getAllHotels", {
@@ -29,7 +29,7 @@ export default function Hotels() {
             Authorization: localStorage.getItem("token"),
             "x-api-key": "ThisIsAPIKey",
           },
-        }); // Replace with your API endpoint
+        });
         setHotels(response.data.data);
       } catch (error) {
         console.error("Error fetching hotels:", error);

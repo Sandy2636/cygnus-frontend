@@ -22,6 +22,7 @@ export default function HotelDetails() {
   const [hotel, setHotel] = useState<Hotel | null>(null);
 
   useEffect(() => {
+    if (!localStorage.getItem("token")) return router.push("/auth/login");
     if (hotel_id) {
       const fetchHotelDetails = async () => {
         try {

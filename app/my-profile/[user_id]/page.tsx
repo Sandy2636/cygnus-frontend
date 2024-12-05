@@ -23,7 +23,6 @@ const ProfileSchema = Yup.object().shape({
 export default function Profile() {
   const router = useRouter();
   const params = useParams();
-  console.log(params);
   const [initialValues, setInitialValues] = useState({
     first_name: "",
     last_name: "",
@@ -34,7 +33,7 @@ export default function Profile() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Fetch user data from API
+    if (!localStorage.getItem("token")) return router.push("/auth/login");
     const fetchUserData = async () => {
       try {
         const response = await axios.get("/users/getUser", {
